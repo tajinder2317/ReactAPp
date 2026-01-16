@@ -1,9 +1,19 @@
-import { StyleSheet, TextInput, View, Alert } from "react-native";
 import { useState } from "react";
-import PrimaryButton from "../components/PrimaryButton";
+import {
+  StyleSheet,
+  TextInput,
+  useWindowDimensions,
+  KeyboardAvoidingView,
+  View,
+  Alert,
+  Dimensions,
+} from "react-native";
+import PrimaryButton from "../components/ui/PrimaryButton";
+// import Card from "./card";
 
 function StartGameScreen({ onPickedNumber }) {
   const [enteredNumber, setEnteredNumber] = useState("");
+  const { width, height } = useWindowDimensions;
 
   function numberInputHandler(enteredNumber) {
     setEnteredNumber(enteredNumber);
@@ -23,38 +33,51 @@ function StartGameScreen({ onPickedNumber }) {
     }
     onPickedNumber(chosenNumber);
   }
-
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput}
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        autoCorrect={false}
-        onChangeText={numberInputHandler}
-        value={enteredNumber}
-      />
-      <View style={styles.pressButtonContainer}>
-        <View>
-          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-        </View>
-        <View>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
-        </View>
+    <KeyboardAvoidingView>
+      <View style={styles.inputContainer}>
+        {/* <Card style={styles.cardContainer}> */}
+          <TextInput
+            style={styles.numberInput}
+            maxLength={2}
+            keyboardType="numeric"
+            inputMode="numeric"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={numberInputHandler}
+            value={enteredNumber}
+          />
+          <View style={styles.pressButtonContainer}>
+            <View>
+              <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+            </View>
+            <View>
+              <PrimaryButton onPress={confirmInputHandler}>
+                Confirm
+              </PrimaryButton>
+            </View>
+          </View>
+        {/* </Card> */}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 export default StartGameScreen;
 
+const deviceHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 100,
-    marginHorizontal: 24,
+    // marginTop: 100,
+    // marginHorizontal: 24,
+    marginTop: deviceHeight < 380 ? 80 : 100,
     borderRadius: 14,
     padding: 16,
     backgroundColor: "rgba(255, 255, 255, 0.26)",
+    alignItems: "center",
+  },
+  cardContainer: {
+    padding: 5,
     alignItems: "center",
   },
   pressButtonContainer: {

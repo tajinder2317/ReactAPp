@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
 import { useEffect, useState } from "react";
-import PrimaryButton from "../components/PrimaryButton";
-import Title from "../components/Title";
+import PrimaryButton from "../components/ui/PrimaryButton";
+import Title from "../components/ui/Title";
 import NumberContainer from "./NumberContainer";
 
 function generateRandomBetween(min, max, exclude) {
